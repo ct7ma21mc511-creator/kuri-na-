@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>偽クリーナー警告・スケアウェア検知・啓発シミュレーター | Security Awareness Lab</title>
+  <meta name="description" content="Web上で「ウイルス検出」「クリーナーをインストール」と騙るスケアウェアの手口・音・URLパターンを安全に学び、見分けるための体験型セキュリティ教育サイトです。">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=Outfit:wght@600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header class="site-header">
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-shield">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="M9 12l2 2 4-4"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">SCARE-GUARD LAB</span>
+          <span class="brand-subtitle">偽クリーナー警告・手口解剖シミュレーター</span>
+        </div>
+      </div>
+      <nav class="nav-links">
+        <a href="#simulator" class="nav-link active">手口シミュレーター</a>
+        <a href="#app-solution" class="nav-link">防護アプリ開発（3大方式）</a>
+        <a href="#url-checker" class="nav-link">詐欺URL判定診断</a>
+        <a href="#anatomy" class="nav-link">技術的からくり</a>
+        <a href="#why-ads" class="nav-link">なぜ広告が出るのか？</a>
+        <a href="#countermeasures" class="nav-link">正しい対処法</a>
+      </nav>
+      <div class="safety-badge">
+        <span class="badge-dot"></span>
+        <span>安全な教育検証環境</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <div class="hero-tag">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <span>サイバーセキュリティ教育・注意喚起プログラム</span>
+      </div>
+      <h1 class="hero-title">
+        Webの「ウイルス検出」「クリーナー推奨」警告は、<br>
+        <span class="gradient-text">99.9%が偽物（スケアウェア）</span>です。
+      </h1>
+      <p class="hero-desc">
+        Webブラウザでサイトを閲覧中に突然「お使いの端末が感染しています」「今すぐクリーナーを導入してください」と表示される手口。
+        突然の警告音や振動、URL偽装のからくりを安全な仮想環境で体験し、見分ける知識を身につけましょう。
+      </p>
+      <div class="hero-actions">
+        <a href="#simulator" class="btn btn-primary" id="btn-start-sim">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          シミュレーターで解剖する
+        </a>
+        <a href="#url-checker" class="btn btn-cyan">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          詐欺URL判定を試す
+        </a>
+        <a href="#countermeasures" class="btn btn-outline">
+          正しい対処法を確認
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Notice Banner -->
+  <div class="sandbox-disclaimer">
+    <div class="disclaimer-inner">
+      <div class="disclaimer-icon">⚠️</div>
+      <div class="disclaimer-text">
+        <strong>【学習専用環境】</strong>
+        本ページ上の警告画面や音声・振動演出はすべてセキュリティ学習目的で再現した**安全なモックアップ**です。お使いの端末への悪影響・課金等は一切発生しません。
+      </div>
+    </div>
+  </div>
+
+  <main class="main-content">
+    <!-- Simulator Section -->
+    <section id="simulator" class="section-block">
+      <div class="section-header">
+        <span class="section-label">INTERACTIVE SANDBOX</span>
+        <h2 class="section-title">偽クリーナー警告の「手口解剖」シミュレーター</h2>
+        <p class="section-sub">
+          以下のフレーム内に、典型的な「偽クリーナー警告（スケアウェア）」が再現されています。<br>
+          <strong>「X線（解説）モード」</strong>や、不安を煽る<strong>「警告音」「振動」</strong>の演出体験をお試しください。
+        </p>
+      </div>
+
+      <!-- Controls Bar -->
+      <div class="sim-toolbar">
+        <div class="sim-mode-toggle">
+          <button class="mode-btn active" id="btn-mode-xray" data-mode="xray">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/>
+            </svg>
+            X線・手口解説モード (推奨)
+          </button>
+          <button class="mode-btn" id="btn-mode-raw" data-mode="raw">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+            </svg>
+            実際の表示モード (詐欺画面そのまま)
+          </button>
+        </div>
+
+        <div class="sim-sensory-controls">
+          <button id="btn-toggle-sound" class="btn-sm btn-audio">
+            <span class="audio-icon">🔊</span>
+            <span id="audio-btn-text">偽警告音をテスト（Web Audio）</span>
+          </button>
+          <button id="btn-test-vibrate" class="btn-sm btn-vibrate">
+            <span>📳</span>
+            <span>振動・揺れ演出をテスト</span>
+          </button>
+        </div>
+
+        <div class="sim-scenario-toggle">
+          <label class="scenario-label">発生シーン:</label>
+          <div class="scenario-btn-group">
+            <button class="scenario-btn active" id="btn-scene-web" data-scene="web">
+              🌐 ブラウザ閲覧時（Web広告型）
+            </button>
+            <button class="scenario-btn" id="btn-scene-app" data-scene="app">
+              📲 無料アプリ利用中（アプリ内広告・オーバーレイ型）
+            </button>
+          </div>
+        </div>
+
+        <button id="btn-reset-sim" class="btn-sm btn-secondary">再スキャンを再生</button>
+      </div>
+
+      <!-- Simulator Stage -->
+      <div class="simulator-stage">
+        <!-- Virtual Android Phone Frame -->
+        <div class="mock-browser-window mode-android" id="mock-window">
+          <!-- Android Punch Hole Camera -->
+          <div class="android-punch-hole"></div>
+
+          <!-- Android Status Bar -->
+          <div class="android-status-bar">
+            <span class="status-time">12:45</span>
+            <div class="status-icons">
+              <span class="status-net">5G</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L12 22l7.03-4.39C20.26 16.07 21 14.12 21 12c0-4.97-4.03-9-9-9z"/></svg>
+              <span class="status-battery">🔋 78%</span>
+            </div>
+          </div>
+
+          <!-- Android Top Bar Area (Switched between Chrome and App) -->
+          <div class="mock-browser-topbar android-chrome-bar" id="topbar-chrome">
+            <div class="mock-address-bar android-address-bar">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <span class="mock-url-text" id="mock-url">https://android-system-security-cleaner.xyz/alert.php</span>
+              <span class="mock-url-badge" title="不審な無料ドメインと偽のSSL">不審ドメイン</span>
+            </div>
+            <div class="android-tab-count">1</div>
+            <div class="android-menu-dots">⋮</div>
+          </div>
+
+          <!-- In-App Header (Visible when in App mode) -->
+          <div class="android-app-header hidden" id="topbar-app">
+            <div class="app-info-bar">
+              <span class="app-icon">🎮</span>
+              <span class="app-title">ブロックパズル DX（無料ゲームアプリ）</span>
+            </div>
+            <span class="app-ad-indicator">無料版（広告あり）</span>
+          </div>
+
+          <!-- Mock Page Content -->
+          <div class="mock-viewport" id="mock-viewport">
+            
+            <!-- Explanatory Overlay Pins (Visible in X-ray mode) -->
+            <div class="inspection-layer" id="inspection-layer">
+              <!-- Dynamically populated/adjusted based on scene -->
+              <div class="inspect-pin pin-1" id="pin-1" style="top: 15px; left: 65%;" data-title="URL・広告枠の正体" data-desc="Webサイトではなく、アプリ内の広告ネットワーク（アドネットワーク）が悪用されて表示された全画面広告です。ゲーム開発者自身ではなく、広告審査をすり抜けた悪質広告主が配信しています。">
+                <span class="pin-marker">1</span>
+                <span class="pin-label" id="pin-1-label">不正な広告枠</span>
+              </div>
+
+              <div class="inspect-pin pin-2" id="pin-2" style="top: 80px; left: 20%;" data-title="OS・システム偽装" data-desc="Androidの公式システム警告を真似ていますが、単なるアプリ内に描画された広告バナーです。アプリが端末のウイルスを検知して警告を出しているわけではありません。">
+                <span class="pin-marker">2</span>
+                <span class="pin-label" id="pin-2-label">公式風の偽装</span>
+              </div>
+
+              <div class="inspect-pin pin-3" id="pin-3" style="top: 175px; right: 12%;" data-title="メモリ・バッテリーの虚偽" data-desc="「メモリが85%圧迫」「ウイルス感染で発熱」など、無料アプリでよく見られる不安煽りです。アプリ内の広告が端末全体のメモリやウイルスを調べることは不可能です。">
+                <span class="pin-marker">3</span>
+                <span class="pin-label" id="pin-3-label">架空のメモリ圧迫</span>
+              </div>
+
+              <div class="inspect-pin pin-4" id="pin-4" style="top: 310px; left: 15%;" data-title="焦燥感を煽るタイマー" data-desc="「残り2分以内に修復しないと端末がフリーズ」などのタイマーは、冷静に考える時間を奪い焦ってクリックさせる心理的誘導（ダークパターン）です。">
+                <span class="pin-marker">4</span>
+                <span class="pin-label" id="pin-4-label">心理誘導タイマー</span>
+              </div>
+
+              <div class="inspect-pin pin-5" id="pin-5" style="bottom: 40px; right: 15%;" data-title="怪しいクリーナーアプリ誘導" data-desc="「今すぐ最適化」「クリーナーを導入」を押すと、Google Playの高額定期購入アプリや、広告をさらに垂れ流す別のアドウェアアプリを入れさせられます。">
+                <span class="pin-marker">5</span>
+                <span class="pin-label" id="pin-5-label">高額アプリ誘導</span>
+              </div>
+            </div>
+
+            <!-- SCENE 1: Web Browser Scareware Screen -->
+            <div class="scare-page scare-android-theme" id="view-web-scare">
+              <div class="scare-header">
+                <div class="scare-os-brand" id="scare-os-brand">
+                  <span class="google-logo-badge">
+                    <span style="color:#4285F4">G</span><span style="color:#EA4335">o</span><span style="color:#FBBC05">o</span><span style="color:#4285F4">g</span><span style="color:#34A853">l</span><span style="color:#EA4335">e</span>
+                  </span>
+                  <span class="os-name" id="os-name">セキュリティ システム警告</span>
+                </div>
+                <div class="scare-live-indicator">LIVE SCAN</div>
+              </div>
+
+              <div class="scare-body">
+                <div class="scare-alert-badge">
+                  <span class="alert-pulse"></span>
+                  Androidの重大なセキュリティリスクを検出
+                </div>
+
+                <h3 class="scare-main-msg" id="scare-main-msg">
+                  お使いの Android 端末が (4) 件のウイルスによって深刻に破損しています！
+                </h3>
+
+                <p class="scare-sub-msg">
+                  最近アクセスしたサイトにより、システムファイルおよびバッテリーが感染しました。写真、メッセージ、連絡先、保存されたパスワードが危険にさらされています。
+                </p>
+
+                <!-- Fake Scan Progress Bar -->
+                <div class="fake-scan-box">
+                  <div class="fake-scan-status">
+                    <span id="scan-status-text">Android システムスキャン完了</span>
+                    <span id="scan-threat-count" class="danger-highlight">ウイルス：4件検出</span>
+                  </div>
+                  <div class="progress-bar-container">
+                    <div class="progress-bar-fill" id="fake-progress-fill"></div>
+                  </div>
+                  <div class="fake-detected-list">
+                    <div class="fake-item">⚠️ Trojan.AndroidOS.Agent - <span class="text-danger">重大</span></div>
+                    <div class="fake-item">⚠️ バッテリー破損度：48.7% - <span class="text-warning">警告</span></div>
+                  </div>
+                </div>
+
+                <!-- Fake Countdown Timer -->
+                <div class="fake-timer-box">
+                  <div class="timer-title">修復までの制限時間：</div>
+                  <div class="timer-digits" id="fake-timer">01:59</div>
+                  <div class="timer-warning">※時間内にクリーナーで修復しない場合、データ破損やSIMカードの無効化が発生します（虚偽）</div>
+                </div>
+
+                <!-- Fake CTA Button -->
+                <div class="fake-action-area">
+                  <button class="fake-clean-btn android-clean-btn" id="fake-clean-btn">
+                    <span class="btn-glow"></span>
+                    今すぐ推奨クリーナーをインストールして修復
+                  </button>
+                  <div class="fake-sub-action">Google Play推奨・認証済みクリーナー（嘘）</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SCENE 2: In-App Interstitial Scareware Screen (NEW!) -->
+            <div class="in-app-container hidden" id="view-app-scare">
+              <!-- Background App Interface (e.g. Free Game) -->
+              <div class="mock-game-bg">
+                <div class="game-header">ステージ 12 クリア！</div>
+                <div class="game-grid">
+                  <div class="block b-cyan"></div><div class="block b-yellow"></div><div class="block b-purple"></div>
+                  <div class="block b-orange"></div><div class="block b-green"></div><div class="block b-red"></div>
+                  <div class="block b-blue"></div><div class="block b-cyan"></div><div class="block b-yellow"></div>
+                </div>
+                <div class="game-status">次のステージを読み込み中...</div>
+              </div>
+
+              <!-- Overlaid Fullscreen Scareware Ad -->
+              <div class="interstitial-scare-overlay">
+                <div class="interstitial-topbar">
+                  <span class="ad-tag">広告（Malvertising）</span>
+                  <button class="tiny-fake-close" id="btn-fake-close" title="非常に小さく誤タップを誘う閉じるボタン">×</button>
+                </div>
+                
+                <div class="in-app-alert-card">
+                  <div class="in-app-alert-icon">⚠️</div>
+                  <div class="in-app-alert-badge">Android システムメンテナンス</div>
+                  <h4 class="in-app-alert-title">メモリ圧迫とウイルスを検出！</h4>
+                  <p class="in-app-alert-text">
+                    ゲームのプレイ中に端末の過熱を検知しました。RAMメモリが<strong>89%圧迫</strong>されており、ウイルスによりCPUが損傷する危険があります。
+                  </p>
+
+                  <div class="in-app-meter-box">
+                    <div class="meter-label">
+                      <span>メモリ使用率</span>
+                      <span class="text-danger">89% (危険)</span>
+                    </div>
+                    <div class="meter-bar"><div class="meter-fill" style="width: 89%;"></div></div>
+                  </div>
+
+                  <button class="fake-clean-btn in-app-btn" id="fake-app-clean-btn">
+                    ⚡ 今すぐメモリ解放とウイルス除去を実行
+                  </button>
+                  <div class="in-app-subtext">※Google Playから強力クリーナーをダウンロード（広告）</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Android Bottom Gesture Bar -->
+          <div class="android-gesture-bar">
+            <div class="android-nav-pill"></div>
+          </div>
+        </div>
+
+        <!-- Inspector Detail Panel -->
+        <div class="inspector-card" id="inspector-card">
+          <div class="card-header">
+            <span class="card-badge">手口の解説インスペクター</span>
+            <span class="card-hint">上のマーカー [1]〜[5] をクリックして詳細を確認できます</span>
+          </div>
+          <div class="card-body" id="inspector-detail-content">
+            <h4 class="inspector-item-title" id="inspector-title">💡 なぜこの画面が出るのか？（クリックして詳細を表示）</h4>
+            <p class="inspector-item-text" id="inspector-desc">
+              この画面は、広告ネットワークの脆弱性や不正な転送広告（リダイレクト）によって、閲覧中のWebサイトから勝手に遷移させられた**「ただのWebページ」**です。端末本体が警告を出しているわけではありません。
+            </p>
+            <div class="inspector-point-box" id="inspector-point">
+              <strong>核心のポイント：</strong>
+              <span>Webブラウザはセキュリティの仕様（サンドボックス）上、端末のファイルやウイルスを勝手に検出することは技術的に不可能です。</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- NEW SECTION: Scam URL Pattern Checker -->
+    <section id="url-checker" class="section-block">
+      <div class="section-header">
+        <span class="section-label">HEURISTIC ANALYSIS TOOL</span>
+        <h2 class="section-title">詐欺URL・ドメインパターン判定チェッカー</h2>
+        <p class="section-sub">
+          怪しいと感じたURLやドメインを入力してください。スケアウェア・フィッシング特有の「不審なパターン」を瞬時に解析・判定します。
+        </p>
+      </div>
+
+      <div class="checker-container">
+        <div class="checker-input-box">
+          <div class="input-wrapper">
+            <span class="input-icon">🔗</span>
+            <input type="text" id="url-input" placeholder="例: https://system-security-cleaner-check289.xyz" value="https://apple-security-protect-cleaner88.xyz">
+            <button class="btn btn-primary" id="btn-analyze-url">URLを診断する</button>
+          </div>
+          
+          <div class="sample-presets">
+            <span class="presets-label">診断サンプルを試す:</span>
+            <button class="sample-chip danger" data-url="https://apple-security-protect-cleaner88.xyz/scan?id=iphone">
+              🔴 危険例1: Apple偽装型
+            </button>
+            <button class="sample-chip danger" data-url="https://192.168.1.100.defender-update-virus-fix.top/win11">
+              🔴 危険例2: Windows偽装・IP混入型
+            </button>
+            <button class="sample-chip safe" data-url="https://support.microsoft.com/ja-jp/windows/security">
+              🟢 安全例: Microsoft公式サポート
+            </button>
+          </div>
+        </div>
+
+        <!-- Analysis Result Box -->
+        <div class="checker-result" id="checker-result">
+          <div class="result-header">
+            <div class="risk-badge-group">
+              <span class="result-risk-level danger" id="risk-level-badge">危険度：極めて高い (CRITICAL)</span>
+              <span class="risk-score" id="risk-score">詐欺確率: 98%</span>
+            </div>
+            <div class="domain-extracted" id="domain-extracted">対象ホスト: <code>apple-security-protect-cleaner88.xyz</code></div>
+          </div>
+
+          <div class="heuristic-breakdown">
+            <h4>検出されたリスク要因（ヒューリスティック分析）：</h4>
+            <ul class="breakdown-list" id="breakdown-list">
+              <!-- Dynamically populated -->
+            </ul>
+          </div>
+
+          <div class="checker-advice-box" id="checker-advice">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEW SECTION: Android CleanerShield App Architecture & Interactive Defense Demo -->
+    <section id="app-solution" class="section-block">
+      <div class="section-header">
+        <span class="section-label">ANDROID SECURITY ARCHITECTURE</span>
+        <h2 class="section-title">🛡️ 偽クリーナー完全ブロックアプリ「CleanerShield」</h2>
+        <p class="section-sub">
+          「偽クリーナーとされるものをすべてブロックしたい」というご要望に応え、<br>
+          <strong>①ローカルVPN通信遮断</strong> × <strong>②偽通知フィルター</strong> × <strong>③不審アプリスキャナー</strong> を完全統合したAndroidアプリの設計と実装コードを構築しました。
+        </p>
+      </div>
+
+      <!-- App Overview 3 Pillars -->
+      <div class="app-pillars-grid">
+        <!-- Pillar 1 -->
+        <div class="pillar-card">
+          <div class="pillar-badge p-cyan">方式①：通信レベル遮断</div>
+          <div class="pillar-icon">🌐</div>
+          <h3>ローカルVPN DNSブロッカー</h3>
+          <p>
+            端末内で軽量な仮想TUNインターフェース（<code>VpnService</code>）を起動。外部VPNサーバーを経由せず、端末内でDNSクエリを監視し、スケアウェア広告や詐欺ドメインへの接続を瞬時に弾きます。
+          </p>
+          <div class="pillar-files">
+            <span>実装ファイル:</span> <code>CleanerBlockVpnService.kt</code>
+          </div>
+        </div>
+
+        <!-- Pillar 2 -->
+        <div class="pillar-card">
+          <div class="pillar-badge p-amber">方式②：通知の自動消去</div>
+          <div class="pillar-icon">🔕</div>
+          <h3>偽警告プッシュ通知フィルター</h3>
+          <p>
+            <code>NotificationListenerService</code> で端末に届く通知をリアルタイム常時監視。「ウイルス検出」「メモリ不足」「バッテリー破損」などの煽り文句を検知すると、即座に非表示化して犯人アプリを特定します。
+          </p>
+          <div class="pillar-files">
+            <span>実装ファイル:</span> <code>ScareNotificationListenerService.kt</code>
+          </div>
+        </div>
+
+        <!-- Pillar 3 -->
+        <div class="pillar-card">
+          <div class="pillar-badge p-emerald">方式③：原因アプリ特定</div>
+          <div class="pillar-icon">🔍</div>
+          <h3>不審アプリ・オーバーレイスキャナー</h3>
+          <p>
+            <code>PackageManager</code> で端末内の全アプリを診断。ゲーム中などに全画面で割り込む原因となる「他のアプリの上に重ねて表示（<code>SYSTEM_ALERT_WINDOW</code>）」権限を持つアドウェアを特定しワンタップ削除を誘導。
+          </p>
+          <div class="pillar-files">
+            <span>実装ファイル:</span> <code>AdwareScanner.kt</code>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Defense Demo Console -->
+      <div class="defense-console-card">
+        <div class="console-header">
+          <div class="console-title-group">
+            <span class="pulse-shield">🛡️</span>
+            <div>
+              <div class="console-main-title">CleanerShield 統合防護シミュレーター（動作検証コンソール）</div>
+              <div class="console-sub-title">実際のAndroidアプリが脅威をどのように検知・ブロックするかをテストできます</div>
+            </div>
+          </div>
+          <div class="console-status-badge" id="shield-status-badge">全防護システム稼働中</div>
+        </div>
+
+        <div class="console-metrics">
+          <div class="metric-item">
+            <span class="metric-num" id="demo-vpn-count">14</span>
+            <span class="metric-label">遮断した詐欺広告（VPN）</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-num" id="demo-notice-count">3</span>
+            <span class="metric-label">消去した偽通知</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-num" id="demo-app-count">1</span>
+            <span class="metric-label">検出した不審アドウェア</span>
+          </div>
+        </div>
+
+        <!-- Action Test Buttons -->
+        <div class="console-actions-bar">
+          <button class="btn btn-primary" id="btn-test-vpn-block">
+            <span>🌐</span> 不正広告の通信を遮断（テスト）
+          </button>
+          <button class="btn btn-outline" id="btn-test-notice-block">
+            <span>🔕</span> 偽プッシュ通知を検知・消去（テスト）
+          </button>
+          <button class="btn btn-cyan" id="btn-test-app-scan">
+            <span>🔍</span> 端末内の不審アプリを診断スキャン
+          </button>
+        </div>
+
+        <!-- Live Event Log -->
+        <div class="console-log-box" id="console-log-box">
+          <div class="log-line safe">[SYSTEM] CleanerShield コア防護エンジン初期化完了。VpnService & NotificationListener 待機中...</div>
+          <div class="log-line block">[VPN-BLOCK] 広告ドメイン「ad-cleaner-speedup-scan.xyz」へのDNSクエリを 0.0.0.0 で遮断しました。</div>
+          <div class="log-line notice">[NOTIF-CANCEL] 偽通知「⚠️ ウイルスが4件検出されました」を自動消去しました（送信元: com.free.cleaner.speed）</div>
+        </div>
+      </div>
+
+      <!-- Android Project Files Explorer Box -->
+      <div class="project-files-box">
+        <div class="pf-header">
+          <h4>📦 作成済みのAndroid Studioプロジェクトコード</h4>
+          <span class="pf-path">保存先: <code>c:\Users\稚紘\Documents\クリーナー\android-app\</code></span>
+        </div>
+        <p class="pf-desc">
+          Android Studioで「Open」してそのままビルドできるKotlinソースコード一式を作成済みです：
+        </p>
+        <div class="pf-tags">
+          <span class="pf-tag">📄 AndroidManifest.xml（権限設定）</span>
+          <span class="pf-tag">📄 CleanerBlockVpnService.kt（方式1 VPN遮断）</span>
+          <span class="pf-tag">📄 ScareNotificationListenerService.kt（方式2 偽通知消去）</span>
+          <span class="pf-tag">📄 AdwareScanner.kt（方式3 アプリ診断）</span>
+          <span class="pf-tag">📄 MainActivity.kt（統合ダッシュボード）</span>
+          <span class="pf-tag">📄 activity_main.xml（UI画面）</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Anatomy Section -->
+    <section id="anatomy" class="section-block">
+      <div class="section-header">
+        <span class="section-label">TECHNICAL MECHANISM</span>
+        <h2 class="section-title">Webの仕組みからわかる「検知が嘘である技術的理由」</h2>
+        <p class="section-sub">
+          「なぜWebページが端末のウイルスを検知できないのか？」そのブラウザの技術仕様と派生手口を解説します。
+        </p>
+      </div>
+
+      <div class="tech-grid">
+        <!-- Card 1 -->
+        <div class="tech-card">
+          <div class="tech-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+          </div>
+          <h3>ブラウザの「サンドボックス構造」</h3>
+          <p>
+            Chrome、Safari、EdgeなどのWebブラウザは、悪意あるWebサイトから端末を守るため、Webページを「砂場（サンドボックス）」という隔離空間で動かします。
+          </p>
+          <div class="tech-verdict">
+            <span>技術的事実:</span> Webサイト側からスマートフォンの写真・連絡先・OSシステムファイル・他アプリの内部を覗き見たりスキャンすることはOS権限上絶対にできません。
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="tech-card">
+          <div class="tech-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <h3>端末名がバレている理由（User-Agent）</h3>
+          <p>
+            「あなたのiPhone 15が〜」と機種名をズバリ当てられて驚く人が多いですが、これはブラウザがWebサーバーへ毎回送信している一般的な情報（User-Agent）です。
+          </p>
+          <div class="tech-verdict">
+            <span>技術的事実:</span> どのサイトでも「画面サイズや機種名」はレイアウト調整のために取得できます。侵入されたわけではありません。
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="tech-card">
+          <div class="tech-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 17H2a3 3 0 0 0 3-3V9a7 7 0 0 1 14 0v5a3 3 0 0 0 3 3zm-8.27 4a2 2 0 0 1-3.46 0"/></svg>
+          </div>
+          <h3>スマホがブルブル振動する仕掛け</h3>
+          <p>
+            警告画面と同時にスマホが激しく振動してパニックになるケースがあります。これはHTML5標準の「Vibration API」を悪用したものです。
+          </p>
+          <div class="tech-verdict">
+            <span>技術的事実:</span> JavaScriptで数行のコード（<code>navigator.vibrate([200, 100, 200])</code>）を書くだけで誰でもブラウザを振動させられます。
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="tech-card">
+          <div class="tech-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+          </div>
+          <h3>タイマーや警告音のトリック</h3>
+          <p>
+            「残り○分」のタイマーは再読み込みするとリセットされる単純なJavaScriptです。警告音もブラウザでWeb Audio API等を悪用して合成・再生しているにすぎません。
+          </p>
+          <div class="tech-verdict">
+            <span>技術的事実:</span> 0秒になっても端末が故障したりSIMがロックされるような権限はWebページに一切存在しません。
+          </div>
+        </div>
+
+        <!-- Card 5 (NEW) -->
+        <div class="tech-card">
+          <div class="tech-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          </div>
+          <h3>派生手口①：ブラウザ「通知の許可」悪用</h3>
+          <p>
+            「私はロボットではありません」と表示し、「許可」を押させようとするサイト。押してしまうと、後からブラウザのプッシュ通知で毎日数十通の「ウイルス感染！クリーナーを起動」という偽通知が届くようになります。
+          </p>
+          <div class="tech-verdict">
+            <span>見分け方:</span> ブラウザの通知許可ポップアップで「許可」を押さないこと。万一押した場合はブラウザ設定の「サイト通知」から削除できます。
+          </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="tech-card">
+          <div class="tech-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <h3>派生手口②：プッシュ通知＆カレンダースパム</h3>
+          <p>
+            「カレンダーの照会」や「通知の許可」を一度押すと、ブラウザやアプリを開いていなくても毎日ロック画面に「ウイルス感染」と通知が届く手口です。
+          </p>
+          <div class="tech-verdict">
+            <span>解決策:</span> ウイルスではなく通知設定や照会カレンダーを登録されただけです。設定から該当サイトの通知オフ・カレンダー削除で完治します。
+          </div>
+        </div>
+
+        <!-- Card 7 (NEW: In-App Scareware & Adware) -->
+        <div class="tech-card highlight-card">
+          <div class="tech-icon-wrap highlight-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+          </div>
+          <h3>アプリ利用中・ホーム画面での警告（アドウェア）</h3>
+          <p>
+            「ブラウザではなく無料ゲーム中やホーム画面で突然ウイルス警告が出る」場合、原因は<strong>悪質なアプリ内広告（Malvertising）</strong>または<strong>過去に入れたアドウェアアプリ</strong>です。
+          </p>
+          <div class="tech-verdict">
+            <span>見分けと撃退法:</span> Androidの「他のアプリの上に重ねて表示」権限を悪用されています。最近入れた無料ツール（電卓、QRリーダー、ファイル管理、懐中電灯等）をアンインストールすればピタリと止まります。
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Ads Appear on Websites & YouTube Section -->
+    <section id="why-ads" class="section-block">
+      <div class="section-header">
+        <span class="section-label">AD ECOSYSTEM & MALVERTISING</span>
+        <h2 class="section-title">なぜ普通のサイトやYouTubeに「怪しい詐欺広告」が出るのか？</h2>
+        <p class="section-sub">
+          「大手サイトやYouTubeを見ていただけなのに、なぜ？」「サイトがハッキングされたの？」<br>
+          その疑問を、現代のWeb広告配信システムと詐欺業者の裏工作から分かりやすく解き明かします。
+        </p>
+      </div>
+
+      <!-- Key Insight Banner -->
+      <div class="ad-insight-banner">
+        <div class="insight-badge">結論</div>
+        <div class="insight-text">
+          <strong>あなたの端末も、見ているWebサイト・YouTubeも「ハッキング」されたわけではありません。</strong><br>
+          現代のWeb広告は人間ではなくプログラムが0.1秒で自動配信しており、詐欺グループがその「審査の盲点」を巧妙にすり抜けて広告枠に潜り込んでいるのが原因です。
+        </div>
+      </div>
+
+      <!-- Mechanism Flow Diagram -->
+      <div class="ad-flow-container">
+        <h3 class="ad-flow-title">詐欺広告が画面に届くまでの「すり抜け経路」</h3>
+        <div class="ad-flow-steps">
+          <div class="ad-flow-step">
+            <div class="step-tag">STEP 1</div>
+            <div class="step-title">審査には「無害な顔」で申請</div>
+            <p>詐欺業者は、Google等の審査ロボットに見せる時だけ「普通の綺麗な製品紹介ページ」を用意して広告審査をパスします。</p>
+          </div>
+          <div class="ad-flow-arrow">➔</div>
+          <div class="ad-flow-step">
+            <div class="step-tag">STEP 2</div>
+            <div class="step-title">自動入札（RTB）で枠を購入</div>
+            <p>WebサイトやYouTubeの広告枠に、プログラムを通じてリアルタイムに自動で広告が瞬時に配信されます（運営者は1件ずつ確認できません）。</p>
+          </div>
+          <div class="ad-flow-arrow">➔</div>
+          <div class="ad-flow-step">
+            <div class="step-tag">STEP 3</div>
+            <div class="step-title">一般ユーザーだけ詐欺画面へ</div>
+            <p>一般のスマホユーザーがアクセスした瞬間だけ「クローキング技術」で偽警告画面（ウイルス検出・クリーナー推奨）に差し替えます。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Detailed 4 Reason Cards -->
+      <div class="ad-reasons-grid">
+        <div class="ad-reason-card">
+          <div class="reason-icon-box">🤖</div>
+          <div class="reason-content">
+            <h4>1. プログラマティック広告（全自動配信）の仕組み</h4>
+            <p>
+              現代のWeb広告（Google AdSenseやAd Exchange等）は、Webサイト運営者や動画投稿者が「どの広告を出すか」を手作業で決めているわけではありません。<br>
+              膨大な広告主の広告が<strong>「リアルタイム入札（RTB）」</strong>というアルゴリズムで0.1秒単位で自動的に枠に当てはめられます。そのため、大手ニュースサイトやYouTubeであっても、システムが怪しい広告を一瞬掴まされてしまうことがあります。
+            </p>
+          </div>
+        </div>
+
+        <div class="ad-reason-card">
+          <div class="reason-icon-box">🎭</div>
+          <div class="reason-content">
+            <h4>2. 審査の目を欺く「クローキング（変装）」技術</h4>
+            <p>
+              「なぜGoogleやプラットフォームの事前審査を通過できるのか？」という最大の理由は<strong>クローキング（Cloaking）</strong>と呼ばれる詐欺技術です。<br>
+              相手が「Googleの審査員・巡回AIボット」だと判断すると無害で真っ当なページを表示し、「一般の一般家庭・スマホ回線からのアクセス」だと判断した時だけ悪質な偽クリーナー警告に自動で中身をすり替えます。
+            </p>
+          </div>
+        </div>
+
+        <div class="ad-reason-card">
+          <div class="reason-icon-box">💰</div>
+          <div class="reason-content">
+            <h4>3. なぜ広告費を払ってまで出す？詐欺の利益構造</h4>
+            <p>
+              「詐欺業者はお金を払って広告を出して赤字にならないの？」と思われるかもしれません。しかし実際には<strong>巨額の黒字</strong>になります。<br>
+              不安に駆られて偽アプリをダウンロードした被害者が、週額3,000円〜5,000円（年額換算で数万円〜数十万円）の「ぼったくり定期課金」に1人でも引っかかれば、広告掲載費など一瞬で回収できてしまうのです（アフィリエイト成果報酬も高額）。
+            </p>
+          </div>
+        </div>
+
+        <div class="ad-reason-card">
+          <div class="reason-icon-box">⚡</div>
+          <div class="reason-content">
+            <h4>4. 勝手に別サイトへ飛ぶ「強制リダイレクト」の罠</h4>
+            <p>
+              画面の何も押していないのに突然警告画面に飛ばされることがあります。これは悪質な広告スクリプト（Malvertising）が、広告枠の中からブラウザのURLを勝手に書き換えて強制移動させる手口です。<br>
+              閲覧中のサイト自体が改ざんされたわけではなく、埋め込まれた<strong>1つの広告枠の中の悪質コード</strong>が暴走している状態です。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Why Can't It Be Stopped? / How to Protect -->
+      <div class="ad-defense-box">
+        <div class="defense-column">
+          <div class="col-header danger-header">
+            <span class="icon">❓</span> なぜプラットフォームは完全に根絶できないのか？
+          </div>
+          <p>
+            GoogleやYouTube、広告配信会社も年間数十億件規模の悪質広告を審査・アカウント凍結・提携解除して対策しています。<br>
+            しかし、詐欺グループ側も使い捨ての海外法人名義や複数の海外サーバー、VPN、偽装ドメインを大量に用意し、BANされても数時間後には別アカウントで再出稿するため、まさに<strong>「いたちごっこ」</strong>が続いているのが現状です。
+          </p>
+        </div>
+
+        <div class="defense-column">
+          <div class="col-header safe-header">
+            <span class="icon">🛡️</span> 私たちが今日からできる3つの自衛策
+          </div>
+          <ul class="defense-tips-list">
+            <li>
+              <strong>「大手サイト・YouTubeの広告＝安全」と思い込まない</strong>
+              <span>どんな大手メディアであっても、広告枠には審査をすり抜けた詐欺広告が紛れ込む前提で警戒しましょう。</span>
+            </li>
+            <li>
+              <strong>突然の警告は100%「広告枠からの偽物」と認識する</strong>
+              <span>Webサイトや動画を見ているだけでスマホ内部のウイルスは見つかりません。画面内は触らず「タブを閉じる」だけで安全です。</span>
+            </li>
+            <li>
+              <strong>広告ブロック（コンテンツブロッカー / DNS）を活用する</strong>
+              <span>Braveブラウザや広告ブロッカー拡張機能、AdGuard等を利用することで、悪質な広告コードそのものの読み込みを防げます。</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Countermeasures & Action Guide -->
+    <section id="countermeasures" class="section-block">
+      <div class="section-header">
+        <span class="section-label">SAFETY ACTION GUIDE</span>
+        <h2 class="section-title">もし偽クリーナー警告に遭遇したら？正しい対処手順</h2>
+        <p class="section-sub">
+          焦る必要は全くありません。次の3つのステップで安全にタブを閉じましょう。
+        </p>
+      </div>
+
+      <div class="steps-flow">
+        <div class="step-card">
+          <div class="step-number">STEP 01</div>
+          <div class="step-icon">🚫</div>
+          <h3>警告画面のボタンを一切押さない</h3>
+          <p>
+            「OK」「修復」「キャンセル」「閉じる」と書かれていても、画面上のボタンはすべて悪質なリンクである可能性があります。
+          </p>
+          <div class="step-badge danger">画面内クリックはNG</div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">STEP 02</div>
+          <div class="step-icon">✖️</div>
+          <h3>ブラウザのタブごと閉じる</h3>
+          <p>
+            ブラウザ本来のタブ一覧を開いて該当のタブを閉じるか、PCならショートカットキー（<code>Ctrl + W</code> または <code>Cmd + W</code>）で閉じます。
+          </p>
+          <div class="step-badge safe">推奨操作</div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">STEP 03</div>
+          <div class="step-icon">📱</div>
+          <h3>閉じられない場合はアプリを強制終了</h3>
+          <p>
+            全画面表示や連続アラートでタブが閉じられない場合は、ブラウザアプリ自体をタスクキル（強制終了）して再起動すれば安全に脱出できます。
+          </p>
+          <div class="step-badge info">パニック時の脱出法</div>
+        </div>
+      </div>
+
+      <!-- FAQ Table / What if scenarios -->
+      <div class="faq-container">
+        <h3 class="faq-title">万が一クリック・インストールしてしまった場合の対処</h3>
+        <div class="faq-grid">
+          <div class="faq-item">
+            <h4>Q. アプリをインストールしてしまったら？</h4>
+            <p>
+              すぐにアンインストール（削除）してください。また、iPhoneなら「設定 > 自分の名前 > サブスクリプション」、Androidなら「Google Play > 定期購入」を確認し、週額課金などの契約が始まっていないか確認・解約してください。
+            </p>
+          </div>
+          <div class="faq-item">
+            <h4>Q. クレジットカード番号や電話番号を入れてしまったら？</h4>
+            <p>
+              直ちにクレジットカード会社へ連絡してカードの利用停止・再発行を依頼してください。電話番号を入力してしまった場合、SMSによるフィッシング詐欺が増える可能性があるため注意してください。
+            </p>
+          </div>
+          <div class="faq-item">
+            <h4>Q. 毎日「ウイルス感染」と通知が届くようになったら？</h4>
+            <p>
+              ブラウザの「プッシュ通知」が悪用されています。Chromeの設定 > 「通知」またはSafariの設定 > 「Webサイト」から、該当の不審サイトの通知権限を「削除またはブロック」してください。
+            </p>
+          </div>
+          <div class="faq-item">
+            <h4>Q. アプリ使用中やホーム画面で突然偽警告が出る場合の駆除は？</h4>
+            <p>
+              原因は過去にインストールした「アドウェア（偽クリーナー、懐中電灯、QRリーダー等）」です。<br>
+              ① Androidの「設定 > アプリ > 特別なアプリアクセス > <strong>他のアプリの上に重ねて表示</strong>」を開き、見覚えのない不審なアプリの許可をOFFにする。<br>
+              ② 最近インストールしたアプリを順にアンインストールする。<br>
+              ③ Google Playストアを開き「Google Play プロテクト」で端末スキャンを実行してください。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-info">
+        <div class="footer-logo">SCARE-GUARD LAB</div>
+        <p>サイバーセキュリティ教育・Web偽警告（スケアウェア）啓発プロジェクト</p>
+        <p class="copyright">本シミュレーターは利用者のセキュリティリテラシー向上を目的とした安全な教育用リソースです。</p>
+      </div>
+      <div class="footer-links">
+        <a href="#simulator">シミュレーター</a>
+        <a href="#url-checker">詐欺URL判定</a>
+        <a href="#anatomy">技術的理由</a>
+        <a href="#why-ads">なぜ広告が出るのか？</a>
+        <a href="#countermeasures">対処法ガイド</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
